@@ -7,7 +7,9 @@ As modules, templates are stand-alone files (not in the DOM…) and they are ser
 Underscore.js **IS NOT** required, this plugin already contains the template method plus some AMD stuffs.
 
 For more information on micro-templates :
+
 http://documentcloud.github.com/underscore/#template
+
 http://ejohn.org/blog/javascript-micro-templating/
 
 I use to use the .tpl file extension but you can use whatever you want, but you have to use the "tpl!" plugin prefix.
