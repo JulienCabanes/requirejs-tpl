@@ -1,0 +1,6 @@
+
+lib/main.js
+----------------
+lib/../../tpl.js
+tpl!hello.tpl
+lib/main.js

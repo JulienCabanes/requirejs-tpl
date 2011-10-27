@@ -1,8 +1,9 @@
 /**
- * Made from the plugin text.js
+ * Adapted from the official plugin text.js
+ *
  * Uses UnderscoreJS micro-templates : http://documentcloud.github.com/underscore/#template
  * @author Julien Cabanès <julien@zeeagency.com>
- * @version 0.1
+ * @version 0.2
  * 
  * @license RequireJS text 0.24.0 Copyright (c) 2010-2011, The Dojo Foundation All Rights Reserved.
  * Available via the MIT or new BSD license.
@@ -14,18 +15,25 @@
   java: false */
 
 (function () {
+//>>excludeStart('excludeTpl', pragmas.excludeTpl)
 	var progIds = ['Msxml2.XMLHTTP', 'Microsoft.XMLHTTP', 'Msxml2.XMLHTTP.4.0'],
+	
 		xmlRegExp = /^\s*<\?xml(\s)+version=[\'\"](\d)*.(\d)*[\'\"](\s)*\?>/im,
+		
 		bodyRegExp = /<body[^>]*>\s*([\s\S]+)\s*<\/body>/im,
+		
 		buildMap = [],
+		
 		templateSettings = {
 			evaluate	: /<%([\s\S]+?)%>/g,
 			interpolate : /<%=([\s\S]+?)%>/g
 		},
 
-		// JavaScript micro-templating, similar to John Resig's implementation.
-		// Underscore templating handles arbitrary delimiters, preserves whitespace,
-		// and correctly escapes quotes within interpolated code.
+		/**
+		 * JavaScript micro-templating, similar to John Resig's implementation.
+		 * Underscore templating handles arbitrary delimiters, preserves whitespace,
+		 * and correctly escapes quotes within interpolated code.
+		 */
 		template = function(str, data) {
 			var c  = templateSettings;
 			var tmpl = 'var __p=[],print=function(){__p.push.apply(__p,arguments);};' +
@@ -44,17 +52,22 @@
 					.replace(/\t/g, '')
 					+ "');}return __p.join('');";
 			return tmpl;
+			
 			/** /
 			var func = new Function('obj', tmpl);
 			return data ? func(data) : func;
 			/**/
 		};
-	
-	define(function () {
-		var tpl, get, fs;
+//>>excludeEnd('excludeTpl')
 
+	define(function () {
+//>>excludeStart('excludeTpl', pragmas.excludeTpl)
+		var tpl;
+
+		var get, fs;
 		if (typeof window !== "undefined" && window.navigator && window.document) {
 			get = function (url, callback) {
+				
 				var xhr = tpl.createXhr();
 				xhr.open('GET', url, true);
 				xhr.onreadystatechange = function (evt) {
@@ -73,13 +86,12 @@
 			fs = require.nodeRequire('fs');
 
 			get = function (url, callback) {
+				
 				callback(fs.readFileSync(url, 'utf8'));
 			};
 		}
-
-		tpl = {
+		return tpl = {
 			version: '0.24.0',
-
 			strip: function (content) {
 				//Strips <?xml ...?> declarations so that external SVG and XML
 				//documents can be added to a document without worry. Also, if the string
@@ -135,6 +147,7 @@
 			get: get,
 
 			load: function (name, req, onLoad, config) {
+				
 				//Name has format: some.module.filext!strip
 				//The strip part is optional.
 				//if strip is present, then that means only get the string contents
@@ -159,28 +172,33 @@
 				url = req.nameToUrl(modName, "." + ext);
 				tpl.get(url, function (content) {
 					content = template(content);
-					if (typeof window !== "undefined" && window.navigator && window.document) {
+					
+					if(!config.isBuild) {
+					//if(typeof window !== "undefined" && window.navigator && window.document) {
 						content = new Function('obj', content);
 					}
 					content = strip ? tpl.strip(content) : content;
+					
 					if (config.isBuild && config.inlineText) {
 						buildMap[name] = content;
 					}
 					onLoad(content);
 				});
+
 			},
 
 			write: function (pluginName, moduleName, write) {
 				if (moduleName in buildMap) {
 					var content = tpl.jsEscape(buildMap[moduleName]);
 					write("define('" + pluginName + "!" + moduleName  +
-  						"', function() {return function (obj) { " +
+  						"', function() {return function(obj) { " +
   							content.replace(/(\\')/g, "'").replace(/(\\\\)/g, "\\")+
   						"}});\n");
 				}
 			}
 		};
-
-		return tpl;
+//>>excludeEnd('excludeTpl')
+		return function() {};	
 	});
+//>>excludeEnd('excludeTpl')
 }());
