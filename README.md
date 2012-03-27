@@ -12,7 +12,7 @@ http://documentcloud.github.com/underscore/#template
 
 http://ejohn.org/blog/javascript-micro-templating/
 
-I use to use the .tpl file extension but you can use whatever you want, but you have to use the "tpl!" plugin prefix.
+I use to use the .tpl file extension but youu can use whatever you want, but you have to use the "tpl!" plugin prefix.
 
 ## Usage
 ```
