@@ -4,6 +4,7 @@
  * Uses UnderscoreJS micro-templates : http://documentcloud.github.com/underscore/#template
  * @author Julien Cabanès <julien@zeeagency.com>
  * @version 0.2
+ *
  * 
  * @license RequireJS text 0.24.0 Copyright (c) 2010-2011, The Dojo Foundation All Rights Reserved.
  * Available via the MIT or new BSD license.
