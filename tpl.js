@@ -180,6 +180,9 @@
 					}
 					content = strip ? tpl.strip(content) : content;
 					
+					// store URL, makes debugging of template errors easier
+					content.url = url;
+					
 					if (config.isBuild && config.inlineText) {
 						buildMap[name] = content;
 					}
