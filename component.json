@@ -1,0 +1,10 @@
+{
+  "name": "requirejs-tpl",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jonmaim/requirejs-tpl.git"
+  },
+  "dependencies": {
+  }
+}
