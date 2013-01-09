@@ -14,14 +14,8 @@
   define: false, window: false, process: false, Packages: false,
   java: false */
 
-define(['text', 'underscore'], function(text, _, undefined)
+define(['text', 'underscore'], function(text, _)
 {
-	var options = undefined;
-	text.changeOptions = function(opt)
-	{
-		options = opt;
-	};
-
 	var baseFinishLoad = text.finishLoad;
 	text.finishLoad = function()
 	{
@@ -30,7 +24,7 @@ define(['text', 'underscore'], function(text, _, undefined)
 		{
 			if (content)
 			{
-				content = _.template(content, undefined, options);
+				content = _.template(content);
 			}
 			baseOnLoad(content);
 		};
