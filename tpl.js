@@ -53,7 +53,7 @@ define(['module', 'text', 'underscore'], function(module, text, _)
 					contents = contents.substr(0, contents.lastIndexOf(';') - 3);
 					try
 					{
-						var template = _.template(escape(contents), undefined, settings);
+						var template = _.template(eval(contents), undefined, settings);
 						write.asModule(pluginName + "!" + moduleName,
 							"define(function() { return " + template.source + " });");
 					}
