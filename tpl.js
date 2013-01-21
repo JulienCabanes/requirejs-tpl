@@ -10,9 +10,8 @@
  * see: http://github.com/jrburke/requirejs for details
  */
 
-define(['module', 'text', 'underscore'], function(module, text, _)
-{
-	var settings = { variable: 'data' };
+define(['module', 'text', 'underscore'], function(module, text, _) {
+	var settings = module.config() || {};
 
 	return {
 		/**
@@ -22,15 +21,8 @@ define(['module', 'text', 'underscore'], function(module, text, _)
 		 * @param onLoad
 		 * @param config
 		 */
-		load: function(name, req, onLoad, config)
-		{
-			if (config.isBuild)
-			{
-				text.load.apply(text, arguments);
-			}
-
-			req([ 'text!' + name ], function(content)
-			{
+		load: function(name, req, onLoad, config) {
+			req([ 'text!' + name ], function(content) {
 				onLoad(content
 					? _.template(content, undefined, settings)
 					: function() { return ''; });
@@ -44,27 +36,22 @@ define(['module', 'text', 'underscore'], function(module, text, _)
 		 * @param write
 		 * @param config
 		 */
-		write: function(pluginName, moduleName, write, config)
-		{
+		write: function(pluginName, moduleName, write, config) {
 			text.write.call(text, pluginName, moduleName, {
-				asModule: function(name, contents)
-				{
+				asModule: function(name, contents) {
 					contents = contents.substr(contents.indexOf('return') + 7);
 					contents = contents.substr(0, contents.lastIndexOf(';') - 3);
-					try
-					{
+					try {
 						var template = _.template(eval(contents), undefined, settings);
 						write.asModule(pluginName + "!" + moduleName,
 							"define(function() { return " + template.source + " });");
 					}
-					catch (err)
-					{
+					catch (err) {
 						console.error('~~~~~');
 						console.error('FAILED TO COMPILE ' + pluginName + "!" + moduleName);
 						console.error('Error:\t\t' + String(err));
 						console.error('\n');
-						if (err && err.source)
-						{
+						if (err && err.source) {
 							console.error('Error Source:\n');
 							console.error(err.source);
 							console.error('\n\n');

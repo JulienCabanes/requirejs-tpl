@@ -1,6 +1,11 @@
 var requirejs = require('requirejs');
 
-requirejs.config({nodeRequire: require});
+requirejs.config({
+    nodeRequire: require,
+    config: {
+        tpl: { variable: 'data' }
+    }
+});
 
 requirejs({
 	paths: {
