@@ -22,6 +22,10 @@ define(['module', 'text', 'underscore'], function(module, text, _) {
 		 * @param config
 		 */
 		load: function(name, req, onLoad, config) {
+			if (config.isBuild) {
+				text.load.call(text, name, req, onLoad, config);
+				return;
+			}
 			req([ 'text!' + name ], function(content) {
 				onLoad(content
 					? _.template(content, undefined, settings)
