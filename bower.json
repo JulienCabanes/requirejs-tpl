@@ -1,0 +1,16 @@
+{
+  "name": "requirejs-tpl",
+  "homepage": "https://github.com/eeroan/requirejs-tpl",
+  "authors": [
+    "n/a"
+  ],
+  "description": "",
+  "main": "tpl.js",
+  "moduleType": [
+    "amd"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "text": "~2.0.14"
+  }
+}
