@@ -1,0 +1,19 @@
+{
+  "name": "requirejs-tpl",
+  "version": "0.3.0",
+  "authors": [
+    "n/a"
+  ],
+  "description": "RequireJS Template Plugin",
+  "license": "MIT",
+  "repository": "dawsontoth/requirejs-tpl",
+  "homepage": "https://github.com/dawsontoth/requirejs-tpl#readme",
+  "bugs": {
+    "url": "https://github.com/dawsontoth/requirejs-tpl/issues"
+  },
+  "main": "tpl.js",
+  "dependencies": {
+    "requirejs": "^2.1.20",
+    "requirejs-text": "^2.0.12"
+  }
+}
